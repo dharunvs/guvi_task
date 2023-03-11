@@ -1,24 +1,13 @@
 $(document).ready(() => {
   $("#loginButton").click((e) => {
     e.preventDefault();
-    console.log("Hello");
-    var message = "";
     $.ajax({
       type: "POST",
-      url: "http://localhost:4444/login.php?action=login",
+      url: "http://localhost:4444/php/login.php",
       crossDomain: true,
       data: $("#loginForm").serialize(),
       success: function (response) {
-        if ($.trim(response) === "1") {
-          console.log("dddd");
-          // $("#login-submit").html("Signing In ...");
-          setTimeout(' window.location.href = "profile.html"; ', 2000);
-        } else {
-          console.log(response);
-          $("#email_check").fadeIn(1000, function () {
-            $("#email_check").html(response).show();
-          });
-        }
+        console.log(response);
       },
     });
   });

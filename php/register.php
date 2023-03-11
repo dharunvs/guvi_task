@@ -1,82 +1,57 @@
 <?php
-    header("Access-Control-Allow-Origin: *");
+  header("Access-Control-Allow-Origin: *");
+  require "../vendor/autoload.php";
 
-    // require_once __DIR__ . '/vendor/autoload.php';
-    require __DIR__ . "/vendor/predis/predis/autoload.php";
+  $DATABASE_HOST = 'localhost';
+  $DATABASE_USER = 'root';
+  $DATABASE_PASS = 'root';
+  $DATABASE_NAME = 'guvi';
 
+  $connection = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+  if(mysqli_connect_errno()){
+      exit("Failed to connect = ".mysqli_connect_error());
+  }
 
-    Predis\Autoloader::register();
-    
-    $redis = new Predis\Client(array(
-      "scheme" => "tcp",
-      "host" => "localhost",
-      "port" => "6379",
-      // "password" => "061297"
-      ));
+  $connString = "mongodb+srv://dharunvs:Sharon_123@guvi.hdlskyb.mongodb.net/?retryWrites=true&w=majority";
+  $client = new MongoDB\Client($connString);
+  $userColl = $client -> guvi -> users;
 
-    // echo "Connected to Redis";
+  if ( !isset($_POST['email'], $_POST['password'], $_POST['cpassword'], $_POST['fname'], $_POST['lname']) ) {
+    exit('Please fill all fields!');
+  }
 
-    // $redis->set("foo", "bar");
-
-    // define("SITE_ROOT", __DIR__);
-
-    // $m = new MongoClient();
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "Dharun@123";
-    $dbname = "guvi";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error){
-      die("Connection failed: " . $conn->connect_error);
-    } 
-
-    
-
-  //   $client = new MongoDB\Client();
-  // $db = $client->test;
-
-
-//   $client = new MongoDB\Driver\Manager(
-//     'mongodb+srv://dharunvs:Sharon_123@guvi.hdlskyb.mongodb.net/?retryWrites=true&w=majority'
-// );
-
-    $formData = $_POST;
-
-    
-
-    
-
-      $signedAlready = false;
-
-      $sql = sprintf("SELECT email FROM users;");
-      if ($result = $conn -> query($sql)) {
-        while ($row = $result -> fetch_row()) {
-          if($row[0] == $formData["email"]){
-            $signedAlready = true;
-          };
-          
+  if($query = $connection->prepare('select email from users where (email = ?)')){
+    $query->bind_param('s', $_POST["email"]);
+    $query->execute();
+    $query->store_result();
+    if($query->num_rows == 0){
+      if($query = $connection->prepare('insert into users (email, password) values (?, ?);')){
+        $query->bind_param("ss", $_POST["email"], $_POST["password"]);
+        $query->execute();
+        if($query->store_result()){
+          $query = $connection->prepare('select id from users where (email = ?);');
+          $query->bind_param("s", $_POST["email"]);
+          $query->execute();
+          $query->bind_result($id);
+          $query->fetch();
+          $cursor = $userColl -> insertOne([
+            "fname" => $_POST["fname"],
+            "lname" => $_POST["lname"],
+            "_id" => $id,
+          ]);
         }
-        $result -> free_result();
+        
+        echo "Success";
       }
-
-      if(!$signedAlready){
-
-
-          $sql = sprintf("INSERT INTO users (email, password) VALUES ('%s', '%s');", $_POST["email"], $_POST["password"]);
-            if (mysqli_query($conn, $sql)) {
-              echo "success";
-            } else {
-              echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-          }
-      
-      
-      } else {
-        echo "already_registered";
-      }
+    } else {
+      echo "Email already exists";
+    }
+  }
 
   
-?>
+  
+  
 
+  
+ 
+?>  

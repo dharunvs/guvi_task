@@ -3,14 +3,14 @@ $(document).ready(() => {
     e.preventDefault();
     var message = "";
     $.ajax({
-      url: "http://localhost:4444/register.php",
+      url: "http://192.168.1.10:4444/php/register.php",
       crossDomain: true,
       method: "post",
       data: $("#registerForm").serialize(),
       success: function (response) {
         console.log(typeof response);
         message = response;
-        document.getElementById("email_check").innerText = response;
+        document.getElementById("echo").innerText = response;
         console.log(response);
       },
     });

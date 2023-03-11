@@ -1,88 +1,46 @@
 <?php
     header("Access-Control-Allow-Origin: *");
+    require "../vendor/autoload.php";
 
-    include_once("db_cls_connect.php");
-    $db = new dbObj();
-    $connString =  $db->getConnstring();
+    $DATABASE_HOST = 'localhost';
+    $DATABASE_USER = 'root';
+    $DATABASE_PASS = 'root';
+    $DATABASE_NAME = 'guvi';
 
-    $params = $_REQUEST;
-    $action = $params['action'] !='' ? $params['action'] : ''; 
-
-    // require_once __DIR__ . '/vendor/autoload.php';
-    require __DIR__ . "/vendor/predis/predis/autoload.php";
-
-
-    // Predis\Autoloader::register();
-    
-    // $redis = new Predis\Client(array(
-    //   "scheme" => "tcp",
-    //   "host" => "localhost",
-    //   "port" => "6379",
-    //   // "password" => "061297"
-    //   ));
-
-    $parameters = [
-        'tcp://127.0.0.1:6379?alias=master',
-        // 'tcp://127.0.0.1:6380?alias=slave',
-    ];
-    
-    $client = new Predis\Client($parameters, ['replication' => true, 'prefix' => 'sessions:']);
-    $handler = new Predis\Session\Handler($client);
-
-    // echo "Connected to Redis";
-
-    // $redis->set("foo", "bar");
-
-    // define("SITE_ROOT", __DIR__);
-
-    // $m = new MongoClient();
-
-
-    $user = new User($connString);
-
-
-    switch($action) {
-        case 'login':
-            $user->login();
-            break;
-        default:
-            return;
+    $connection = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+    if(mysqli_connect_errno()){
+        exit("Failed to connect = ".mysqli_connect_error());
     }
 
-    class User {
-        protected $conn;
-        protected $data = array();
-        function __construct($connString) {
-            $this->conn = $connString;
-        }
-    
-         
-    function login() {
-      
+    // $connString = "mongodb+srv://dharunvs:Sharon_123@guvi.hdlskyb.mongodb.net/?retryWrites=true&w=majority";
+    // $client = new MongoDB\Client($connString);
+    // $userColl = $client -> guvi -> users;
 
-            $user_email = trim($_POST['email']);
-            $user_password = trim($_POST['password']);
+    $redis = new Redis();
+    $redis->connect('127.0.0.1', 6379); 
+    ini_set('session.save_handler', 'redis');
+    ini_set('session.save_path', 'tcp://127.0.0.1:6379');
+    session_start();
 
-            $sql = "SELECT idusers, email, password FROM users WHERE email='$user_email'";
-            $resultset = mysqli_query($this->conn, $sql) or die("database error:". mysqli_error($this->conn));
-            $row = mysqli_fetch_assoc($resultset);
+    if ( !isset($_POST['email'], $_POST['password']) ) {
+        exit('Please fill all fields!');
+    }
 
-            printf(md5($user_password), $row['password']);
-
-            if(md5($user_password) == $row['password']){
-                
-                echo "1";
-                $_SESSION['user_session'] = $row['email'];
-            } else {
-                echo "Ohhh ! Wrong Credential."; // wrong details
+    if ($query = $connection->prepare('select password from users where (email = ?);')){
+        $query->bind_param('s', $_POST["email"]);
+        $query->execute();
+        $query->store_result();
+        if($query->num_rows() > 0){
+            $query->bind_result($password);
+            $query->fetch();
+            if($password == $_POST["password"]){
+                $redis->set(session_id(), $_POST["email"]);
+                echo session_id();
             }
-        
+        } else {
+            echo "Email does not exist";
+        }
     }
-
-}
     
-
-
-  
 ?>
 
