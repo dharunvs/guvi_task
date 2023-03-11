@@ -37,6 +37,7 @@
           $cursor = $userColl -> insertOne([
             "fname" => $_POST["fname"],
             "lname" => $_POST["lname"],
+            "email" => $_POST['email'],
             "_id" => $id,
           ]);
         }

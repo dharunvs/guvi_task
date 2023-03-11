@@ -1,99 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/index.css" />
-    <link rel="stylesheet" href="./css/profile.css" />
 
-    <title>Document</title>
-  </head>
-  <body>
-    <nav>
-      <h1 class="logo"><img src="./assets/logo.png" alt="" /> Round 2</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/index.css" />
+  <link rel="stylesheet" href="./css/profile.css" />
 
-      <ul>
-        <button id="logoutButton">Logout</button>
-      </ul>
-    </nav>
-    <div class="content">
-      <div class="profileTab">
-        <form id="profileForm">
-          <h1>Profile</h1>
+  <title>Document</title>
+</head>
 
-          <div class="prow">
-            <label for="pr_fname">
-              <p>First name</p>
-              <input
-                type="text"
-                placeholder="First name"
-                value="Dharun"
-                name="fname"
-                id="pr_fname"
-              />
-            </label>
+<body>
+  <nav>
+    <h1 class="logo"><img src="./assets/logo.png" alt="" /> Round 2</h1>
 
-            <label for="pr_lname"
-              ><p>Last name</p>
-              <input
-                type="text"
-                placeholder="Last name"
-                value="Sivakumar"
-                name="lname"
-                id="pr_lname"
-            /></label>
-          </div>
+    <ul>
+      <button id="logoutButton">Logout</button>
+    </ul>
+  </nav>
+  <div class="content">
+    <div class="profileTab">
+      <form id="profileForm">
+        <h1>Profile</h1>
 
-          <div class="prow">
-            <label for="pr_email"
-              ><p>Email</p>
-              <input
-                type="email"
-                placeholder="Email"
-                value="dharunsivakumar002@gmail.com"
-                name="email"
-                id="pr_email"
-            /></label>
-          </div>
+        <div class="prow">
+          <label for="pr_fname">
+            <p>First name</p>
+            <input type="text" placeholder="First name" name="fname" id="pr_fname" />
+          </label>
 
-          <div class="prow">
-            <label for="pr_age"
-              ><p>Age</p>
-              <input
-                type="number"
-                placeholder="Age"
-                value=""
-                name="age"
-                id="pr_age"
-            /></label>
+          <label for="pr_lname">
+            <p>Last name</p>
+            <input type="text" placeholder="Last name" name="lname" id="pr_lname" />
+          </label>
+        </div>
 
-            <label for="pr_dob"
-              ><p>DOB</p>
-              <input type="date" placeholder="DOB" name="DOB" id="pr_dob" />
-            </label>
-          </div>
+        <div class="prow">
+          <label for="pr_email">
+            <p>Email</p>
+            <input type="text" placeholder="Email" name="email" id="pr_email" />
+          </label>
+        </div>
 
-          <div class="prow">
-            <label for="pr_phone"
-              ><p>Phone number</p>
-              <input
-                type="number"
-                placeholder="Phone number"
-                value=""
-                name="phone"
-                id="pr_phone"
-            /></label>
-          </div>
+        <div class="prow">
+          <label for="pr_age">
+            <p>Age</p>
+            <input type="text" placeholder="Age" name="age" id="pr_age" />
+          </label>
 
-          <div id="pControl">
-            <button id="edit_save_button" value="edit">Edit</button>
-          </div>
-        </form>
-      </div>
+          <label for="pr_dob">
+            <p>DOB</p>
+            <input type="text" placeholder="DOB" name="DOB" id="pr_dob" />
+          </label>
+        </div>
+
+        <div class="prow">
+          <label for="pr_phone">
+            <p>Phone number</p>
+            <input type="text" placeholder="Phone number" name="phone" id="pr_phone" />
+          </label>
+        </div>
+
+        <div id="pControl">
+          <button id="edit_save_button" value="edit">Edit</button>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="./js/profile.js"></script>
-  </body>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="./js/profile.js"></script>
+</body>
+
 </html>

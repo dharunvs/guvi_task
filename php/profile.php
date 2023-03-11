@@ -1,28 +1,50 @@
 <?php
-    header("Access-Control-Allow-Origin: *");
-    require "../vendor/autoload.php";
+  header("Access-Control-Allow-Origin: *");
+require '../vendor/autoload.php';
+$redis = new Redis();
+$redis->connect('127.0.0.1', 6379); 
+ini_set('session.save_handler', 'redis');
+ini_set('session.save_path', 'tcp://127.0.0.1:6379');
+session_start();
 
-    // $DATABASE_HOST = 'localhost';
-    // $DATABASE_USER = 'root';
-    // $DATABASE_PASS = 'root';
-    // $DATABASE_NAME = 'guvi';
+// $client = new MongoDB\Client("mongodb+srv://dharundds:dharundds@cluster0.rzr9ju3.mongodb.net/?retryWrites=true&w=majority");
 
-    // $connection = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-    // if(mysqli_connect_errno()){
-    //     exit("Failed to connect = ".mysqli_connect_error());
-    // }
+// $collection = $client->Accounts->users;
+$connString = "mongodb+srv://dharunvs:Sharon_123@guvi.hdlskyb.mongodb.net/?retryWrites=true&w=majority";
+  $client = new MongoDB\Client($connString);
+  $collection = $client -> guvi -> users;
 
-    $connString = "mongodb+srv://dharunvs:Sharon_123@guvi.hdlskyb.mongodb.net/?retryWrites=true&w=majority";
-    $client = new MongoDB\Client($connString);
-    $userColl = $client -> guvi -> users;
 
-    // $redis = new Redis();
-    // $redis->connect('127.0.0.1', 6379); 
-    // ini_set('session.save_handler', 'redis');
-    // ini_set('session.save_path', 'tcp://127.0.0.1:6379');
-    // session_start();
-    
-    // echo "redis ". $redis->ping();
+$sess_data = $redis->get(session_id());
+// printf(session_id());
+
+if(isset($sess_data)){
+     $id = $redis->get($sess_data);
+    //  echo $id;
+     $cursor = $collection->find([
+          '_id' => intval($id),
+     ]);
+     // Print documents
+     foreach ($cursor as $document) {
+          $data = array([
+               "fname"=>$document['fname'],
+               "lname"=>$document['lname'],
+               "email"=>$document['email'],
+               "dob"=>$document['dob'],
+               "age"=>$document['age'],
+               "phone"=>$document['phone']
+          ]);
+     }
+
+     $json_data = json_encode($data);
+     header('Content-Type','application/json');
+     echo $json_data;
+
+
+}else{
+     echo "Please log in";
+}
+
     
 ?>
 

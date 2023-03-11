@@ -1,12 +1,26 @@
 $(document).ready(() => {
+  $.ajax({
+    url: "http://localhost:8080/php/authState.php",
+    crossDomain: true,
+    type: "POST",
+    data: JSON.stringify({ session_id: localStorage.getItem("session_id") }),
+    success: function (res) {
+      // window.location.pathname = "/profile.html";
+      console.log(res);
+      if (res) window.location.pathname = "/profile.html";
+      else localStorage.clear("session_id");
+    },
+  });
   $("#loginButton").click((e) => {
     e.preventDefault();
     $.ajax({
       type: "POST",
-      url: "http://localhost:4444/php/login.php",
+      url: "http://localhost:8080/php/login.php",
       crossDomain: true,
       data: $("#loginForm").serialize(),
       success: function (response) {
+        localStorage.setItem("session_id", response);
+        window.location.pathname = "/profile.html";
         console.log(response);
       },
     });
@@ -39,7 +53,7 @@ $(document).ready(() => {
 //   var data = $("#loginForm").serialize();
 //   $.ajax({
 //     type: "POST",
-//     url: "http://localhost:4444/login.php?action=login",
+//     url: "http://localhost:8080/login.php?action=login",
 //     data: data,
 //     // beforeSend: function () {
 //     //   $("#error").fadeOut();

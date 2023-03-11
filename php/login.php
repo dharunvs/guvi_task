@@ -26,15 +26,17 @@
         exit('Please fill all fields!');
     }
 
-    if ($query = $connection->prepare('select password from users where (email = ?);')){
+    if ($query = $connection->prepare('select id,password from users where (email = ?);')){
         $query->bind_param('s', $_POST["email"]);
         $query->execute();
         $query->store_result();
         if($query->num_rows() > 0){
-            $query->bind_result($password);
+            $query->bind_result($id,$password);
             $query->fetch();
             if($password == $_POST["password"]){
                 $redis->set(session_id(), $_POST["email"]);
+                $redis->set($_POST["email"],$id);
+                echo $id;
                 echo session_id();
             }
         } else {
