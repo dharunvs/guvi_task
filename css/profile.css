@@ -1,0 +1,51 @@
+.profileTab {
+  width: 400px;
+  padding: 50px;
+  background-color: antiquewhite;
+}
+
+.profileTab form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.profileTab form .prow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.profileTab form .prow label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.profileTab form .prow label p {
+  font-size: 0.8rem;
+}
+
+.profileTab form .prow input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid gray;
+  outline: none;
+}
+
+#pControl {
+  width: 100%;
+}
+
+#pControl button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid gray;
+  outline: none;
+}

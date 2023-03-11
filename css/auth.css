@@ -1,0 +1,22 @@
+.authContainer {
+  width: 400px;
+  padding: 50px;
+  background-color: antiquewhite;
+}
+
+.authContainer form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.authContainer form input,
+.authContainer form button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid gray;
+  outline: none;
+}
