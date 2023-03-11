@@ -9,6 +9,7 @@
 body {
   width: 100%;
   min-height: 100vh;
+  background-color: #f6f6f9;
 }
 
 nav {
@@ -18,9 +19,20 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: aliceblue;
+  background-color: white;
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.1);
 }
 
+nav .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* gap: 20px; */
+}
+
+nav .logo img {
+  scale: 0.8;
+}
 nav ul {
   display: flex;
   align-items: center;

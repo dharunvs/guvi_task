@@ -1,7 +1,7 @@
 .authContainer {
   width: 400px;
   padding: 50px;
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
 }
 
 .authContainer form {
@@ -17,6 +17,22 @@
 .authContainer form button {
   width: 100%;
   padding: 10px;
-  border: 1px solid gray;
+  border: 1px solid lightgray;
+  border-radius: 5px;
   outline: none;
+}
+
+.authContainer form button {
+  background-color: #0dba4b;
+  color: white;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.content img {
+  width: 50%;
+  place-self: flex-end;
 }

@@ -1,7 +1,8 @@
 .profileTab {
   width: 400px;
   padding: 50px;
-  background-color: antiquewhite;
+  background-color: white;
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 .profileTab form {
@@ -30,13 +31,27 @@
 
 .profileTab form .prow label p {
   font-size: 0.8rem;
+  padding: 5px 1px;
+  color: gray;
 }
 
 .profileTab form .prow input {
   width: 100%;
   padding: 10px;
-  border: 1px solid gray;
+  border: 1px solid lightgray;
+  border-radius: 5px;
   outline: none;
+  transition: all 200ms ease-in;
+}
+
+.profileTab form .prow input:disabled {
+  padding: 0;
+  border: 1px solid transparent;
+  background-color: transparent;
+  border-radius: 5px;
+  outline: none;
+  color: black;
+  transition: all 200ms ease-in-out;
 }
 
 #pControl {
@@ -46,6 +61,17 @@
 #pControl button {
   width: 100%;
   padding: 10px;
-  border: 1px solid gray;
+  border: 1px solid #0dba4b;
+  border-radius: 5px;
   outline: none;
+  background-color: #0dba4b;
+  color: white;
+}
+
+.content {
+  height: 70vh;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
 }
