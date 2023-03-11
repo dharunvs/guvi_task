@@ -4,8 +4,7 @@ let pr_email = document.getElementById("pr_email");
 let pr_age = document.getElementById("pr_age");
 let pr_dob = document.getElementById("pr_dob");
 let pr_phone = document.getElementById("pr_phone");
-let editButton = document.getElementById("edit_button");
-let saveButton = document.getElementById("save_button");
+let esButton = document.getElementById("edit_save_button");
 
 let logoutButton = document.getElementById("logoutButton");
 
@@ -24,42 +23,49 @@ function setField(state) {
 
 setField(toggleState);
 
-$(editButton).click((e) => {
+$(esButton).click((e) => {
   e.preventDefault();
-  toggleState = !toggleState;
-  setField(toggleState);
-  $(pControl).html('<button id="save_button">Save</button>');
-  editButton = document.getElementById("edit_button");
-  saveButton = document.getElementById("save_button");
+  console.log(esButton.value);
+  if (esButton.value === "edit") {
+    toggleState = !toggleState;
+    setField(toggleState);
+    esButton.value = "save";
+    esButton.innerText = "Save";
+  } else if (esButton.value === "save") {
+    toggleState = !toggleState;
+    setField(toggleState);
+    esButton.value = "edit";
+    esButton.innerText = "Edit";
+  }
 });
 
-$(saveButton).click((e) => {
-  e.preventDefault();
+// $(saveButton).click((e) => {
+//   e.preventDefault();
 
-  //   $.ajax({
-  //     url: "http://192.168.1.10:4444/php/register.php",
-  //     crossDomain: true,
-  //     method: "post",
-  //     data: $("#registerForm").serialize(),
-  //     success: function (response) {
-  //       console.log(typeof response);
-  //       message = response;
-  //       document.getElementById("echo").innerText = response;
-  //       console.log(response);
-  //       toggleState = !toggleState;
-  //       setField(toggleState);
-  //       $(pControl).html('<button id="edit_button">Edit</button>');
-  //     },
-  //   });
+//   $.ajax({
+//     url: "http://192.168.1.10:4444/php/register.php",
+//     crossDomain: true,
+//     method: "post",
+//     data: $("#registerForm").serialize(),
+//     success: function (response) {
+//       console.log(typeof response);
+//       message = response;
+//       document.getElementById("echo").innerText = response;
+//       console.log(response);
+//       toggleState = !toggleState;
+//       setField(toggleState);
+//       $(pControl).html('<button id="edit_button">Edit</button>');
+//     },
+//   });
 
-  toggleState = !toggleState;
-  setField(toggleState);
-  $(pControl).html('<button id="edit_button">Edit</button>');
-  editButton = document.getElementById("edit_button");
-  saveButton = document.getElementById("save_button");
-});
+//   toggleState = !toggleState;
+//   setField(toggleState);
+//   $(pControl).html('<button id="edit_button">Edit</button>');
+//   editButton = document.getElementById("edit_button");
+//   saveButton = document.getElementById("save_button");
+// });
 
-$(logoutButton).click(() => {
-  localStorage.clear();
-  window.location = "register.html";
-});
+// $(logoutButton).click(() => {
+//   localStorage.clear();
+//   window.location = "register.html";
+// });
