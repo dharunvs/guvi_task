@@ -75,3 +75,11 @@
   align-items: center;
   justify-content: center;
 }
+
+#logoutButton {
+  padding: 10px 20px;
+  background-color: #0dba4b;
+  border-radius: 5px;
+  color: white;
+  border: none;
+}

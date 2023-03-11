@@ -43,5 +43,13 @@ nav ul {
 
 nav ul li a {
   text-decoration: none;
-  color: black;
+  color: #0dba4b;
+}
+
+nav ul li .regLink {
+  padding: 10px 20px;
+  background-color: #0dba4b;
+  border-radius: 5px;
+  color: white;
+  border: none;
 }
