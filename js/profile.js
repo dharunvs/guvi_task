@@ -25,7 +25,6 @@ setField(toggleState);
 
 $(esButton).click((e) => {
   e.preventDefault();
-  console.log(esButton.value);
   if (esButton.value === "edit") {
     toggleState = !toggleState;
     setField(toggleState);

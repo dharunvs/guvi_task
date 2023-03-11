@@ -28,6 +28,7 @@
 }
 
 .content {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
@@ -35,4 +36,25 @@
 .content img {
   width: 50%;
   place-self: flex-end;
+}
+
+@media screen and (max-width: 800px) {
+  .content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .content img {
+    width: 50%;
+    place-self: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .authContainer {
+    width: 90%;
+  }
 }
